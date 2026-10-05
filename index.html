@@ -1,1 +1,307 @@
-<!doctype html><title>ProvMind</title><h1>ProvMind</h1><p>Accountable agents, by construction.</p>
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProvMind — analytics you can prove</title>
+<meta name="description" content="A provenance-backed ledger: every figure, in any unit, traced back to the dated and attributed events that produced it.">
+<link rel="icon" type="image/svg+xml" href="assets/provmind-favicon-32.svg">
+<meta property="og:title" content="ProvMind — analytics you can prove">
+<meta property="og:description" content="Every figure, in any unit, traced back to what actually happened.">
+<meta property="og:url" content="https://www.provmind.com/">
+<style>
+  :root {
+    --bg: #FAF9F5;
+    --surface: #FFFFFF;
+    --paper: #F4F2EC;
+    --text: #1B1F3B;
+    --muted: #55597A;
+    --line: #E2DFD5;
+    --accent: #1B1F3B;
+    --accent-text: #FFFFFF;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12152A;
+      --surface: #1B1F3B;
+      --paper: #181C36;
+      --text: #ECEAF4;
+      --muted: #A9ACC6;
+      --line: #2D3257;
+      --accent: #ECEAF4;
+      --accent-text: #1B1F3B;
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  header { padding: 22px 0; }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  header img { height: 40px; width: auto; display: block; }
+  nav a { margin-left: 22px; text-decoration: none; color: var(--muted); font-size: 15px; }
+  nav a:hover { color: var(--text); }
+
+  .hero { padding: 56px 0 72px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.25fr 1fr; gap: 48px; align-items: center; }
+  h1 { font-size: clamp(38px, 5.6vw, 60px); line-height: 1.05; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 20px; }
+  .lead { font-size: 20px; color: var(--muted); margin: 0 0 32px; max-width: 32em; }
+  .button {
+    display: inline-block; background: var(--accent); color: var(--accent-text);
+    padding: 12px 22px; border-radius: 6px; text-decoration: none; font-weight: 500;
+  }
+  .hero-mark { color: var(--text); justify-self: center; width: 100%; max-width: 340px; }
+  .hero-mark svg { width: 100%; height: auto; display: block; }
+
+  section { padding: 64px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 30px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.2; margin: 0 0 14px; }
+  .kicker { text-transform: uppercase; letter-spacing: 0.12em; font-size: 13px; color: var(--muted); margin: 0 0 10px; }
+  .intro { color: var(--muted); max-width: 40em; margin: 0 0 36px; }
+
+  .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .three div { border-top: 2px solid var(--text); padding-top: 14px; }
+  .three h3 { font-size: 20px; font-weight: 500; margin: 0 0 4px; }
+  .three em { display: block; font-style: normal; color: var(--text); margin-bottom: 6px; }
+  .three p { margin: 0; color: var(--muted); font-size: 16px; }
+
+  .questions { list-style: none; padding: 0; margin: 0 0 28px; border-top: 1px solid var(--line); }
+  .questions li {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
+    padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 20px; line-height: 1.4;
+  }
+  .questions .unit { flex-shrink: 0; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .punch { font-size: 19px; max-width: 38em; margin: 0; }
+
+  .props { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .prop { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 24px; }
+  .prop h3 { font-size: 18px; font-weight: 500; margin: 0 0 8px; }
+  .prop p { margin: 0; color: var(--muted); font-size: 16px; }
+  .units { margin: 28px 0 0; color: var(--muted); font-size: 16px; }
+  .units strong { color: var(--text); font-weight: 500; }
+
+  .split { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .split h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); font-weight: 400; margin: 0 0 8px; }
+  .split p { margin: 0; font-size: 18px; }
+
+  .standards ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 32px; }
+  .standards li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .standards li strong { font-weight: 500; }
+  .standards li span { display: block; color: var(--muted); font-size: 15px; }
+
+  .contact { background: var(--paper); }
+  .contact p { color: var(--muted); margin: 0 0 24px; max-width: 36em; }
+
+  footer { padding: 28px 0 40px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+
+  @media (max-width: 820px) {
+    .hero { padding: 24px 0 48px; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 32px; }
+    .hero-mark { max-width: 200px; justify-self: start; }
+    .three, .props, .split, .standards ul { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 0 16px; }
+    nav { display: none; }
+    .lead, .questions li, .punch { font-size: 18px; }
+    .questions li { flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="/" aria-label="ProvMind home">
+      <picture>
+        <source srcset="assets/provmind-logo-on-dark.svg" media="(prefers-color-scheme: dark)">
+        <img src="assets/provmind-logo-on-light.svg" alt="ProvMind">
+      </picture>
+    </a>
+    <nav aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#ledger">The ledger</a>
+      <a href="#standards">Standards</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Analytics you can prove.</h1>
+        <p class="lead">Every figure, in any unit, traced back to the dated and attributed events
+          that produced it. A provenance-backed ledger, built on the systems you already run.</p>
+        <a class="button" href="#contact">Talk to us</a>
+      </div>
+      <div class="hero-mark" aria-hidden="true">
+        <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round">
+            <path d="M8.6 28 H33"/>
+            <path d="M15 28 C18.5 18.5 27 14 41 14"/>
+            <path d="M24 28 C28 37.8 37 42.3 49 42.3"/>
+          </g>
+          <g fill="currentColor">
+            <circle cx="15" cy="28" r="1.6"/>
+            <circle cx="24" cy="28" r="1.6"/>
+            <circle cx="33" cy="28" r="2.6"/>
+            <circle cx="41" cy="14" r="2.6"/>
+            <circle cx="49" cy="42.3" r="2.6"/>
+          </g>
+          <circle cx="6" cy="28" r="2.6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <section id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <p class="kicker">How it works</p>
+      <h2 id="how-h">One record, three layers</h2>
+      <p class="intro">Everyone has analytics. What is unusual is being able to prove one: to take
+        any number and walk back, without interpretation, to the events that caused it.</p>
+      <div class="three">
+        <div>
+          <h3>Provenance</h3>
+          <em>What happened.</em>
+          <p>Every act in your business systems, dated, attributed, with its inputs named, woven
+            into a single record.</p>
+        </div>
+        <div>
+          <h3>Ledger</h3>
+          <em>What it adds up to.</em>
+          <p>Double-entry books derived from that record, in any unit. Nobody writes the
+            entries.</p>
+        </div>
+        <div>
+          <h3>Proof</h3>
+          <em>What it means.</em>
+          <p>Answers that carry their evidence with them, down to the act that justifies each
+            figure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="questions-h">
+    <div class="wrap">
+      <p class="kicker">What it answers</p>
+      <h2 id="questions-h">Questions that usually take a person and a week</h2>
+      <ul class="questions">
+        <li><span>“What has this product line actually cost us to keep?”</span><span class="unit">m²·day</span></li>
+        <li><span>“What carbon left with that shipment?”</span><span class="unit">kg CO₂e</span></li>
+        <li><span>“Where do the books and the floor disagree?”</span><span class="unit">units &amp; money</span></li>
+        <li><span>“Who inspected this serial, and against which checklist?”</span><span class="unit">custody</span></li>
+      </ul>
+      <p class="punch">Every one resolves, in one step, to the acts that produced it. Not a figure
+        assembled from four extracts, but a figure with its evidence still attached.</p>
+    </div>
+  </section>
+
+  <section id="ledger" aria-labelledby="ledger-h">
+    <div class="wrap">
+      <p class="kicker">The ledger</p>
+      <h2 id="ledger-h">We did not invent the ledger.<br>We made it derive itself.</h2>
+      <p class="intro">Double-entry bookkeeping is seven hundred years old. What is new is that the
+        ledger is backed by provenance: its entries are derived from a record of what actually
+        happened, by one mechanism, whatever is being counted.</p>
+      <div class="props">
+        <div class="prop">
+          <h3>Anchored</h3>
+          <p>Every entry names the acts that justify it, so “why is this figure here?” always has
+            an answer.</p>
+        </div>
+        <div class="prop">
+          <h3>Conserved before written</h3>
+          <p>An entry must balance under that resource's own law, or it is refused. You are never
+            handed a figure that was quietly patched.</p>
+        </div>
+        <div class="prop">
+          <h3>Restated, never edited</h3>
+          <p>A changed factor reverses the prior statement and posts a new dated version. Last
+            year's number stays last year's number.</p>
+        </div>
+        <div class="prop">
+          <h3>Independently checkable</h3>
+          <p>The books reconcile against the account your own systems keep: two accounts of the
+            same events, agreeing or disagreeing loudly.</p>
+        </div>
+      </div>
+      <p class="units">One mechanism, many books: <strong>money</strong>, <strong>stock</strong>,
+        <strong>space</strong> in m²·day, <strong>carbon</strong> in kg CO₂e, and the
+        <strong>sales funnel</strong>.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="light-h">
+    <div class="wrap">
+      <p class="kicker" id="light-h">A light touch</p>
+      <div class="split">
+        <div>
+          <h3>For the business</h3>
+          <p>Nobody types anything new. No new screens, no new fields, no change to how anyone
+            works.</p>
+        </div>
+        <div>
+          <h3>For IT</h3>
+          <p>Read-only. No schema change, nothing written back. The record lives in your own
+            PostgreSQL, read with SQL.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="standards" class="standards" aria-labelledby="standards-h">
+    <div class="wrap">
+      <p class="kicker">Open foundations</p>
+      <h2 id="standards-h">Your record, in open standards</h2>
+      <p class="intro">No proprietary format anywhere: not the database, not the query language,
+        not the export.</p>
+      <ul>
+        <li><strong><a href="https://www.w3.org/TR/prov-overview/">W3C PROV</a></strong>
+          <span>The web standard for provenance.</span></li>
+        <li><strong><a href="https://openprovenance.org/prov-jsonld/">PROV-JSONLD</a></strong>
+          <span>A compact, linked-data serialisation of PROV.</span></li>
+        <li><strong>Provenance templates</strong>
+          <span>The record is generated from declared templates, so its meaning is published,
+            not buried in code.</span></li>
+        <li><strong><a href="https://openprovenance.org/ns/openprov.html">OpenProv</a></strong>
+          <span>The OpenProvenance extensions to PROV.</span></li>
+        <li><strong><a href="https://github.com/lucmoreau/ProvToolbox">ProvToolbox</a></strong>
+          <span>Open-source Java toolkit for PROV and provenance templates.</span></li>
+        <li><strong>PostgreSQL and SQL</strong>
+          <span>The record sits in your own database, readable by the tools you already
+            own.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" class="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <p class="kicker">Start here</p>
+      <h2 id="contact-h">One period of your stock, reconciled three ways.</h2>
+      <p>On a read-only feed, against your own numbers. It either finds real money or proves the
+        books are clean.</p>
+      <!-- TODO: confirm this mailbox exists before publishing -->
+      <a class="button" href="mailto:hello@provmind.com">hello@provmind.com</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 ProvMind · Decide on evidence.</div>
+</footer>
+
+</body>
+</html>
